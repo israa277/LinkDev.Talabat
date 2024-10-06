@@ -1,3 +1,4 @@
+using LinkDev.Talabat.Infrastructure.Persistence;
 
 namespace LinkDev.Talabat.APIs
 {
@@ -12,12 +13,11 @@ namespace LinkDev.Talabat.APIs
 
 			webApplicationbuilder.Services.AddControllers();
 			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-			webApplicationbuilder.Services.AddEndpointsApiExplorer();
-			webApplicationbuilder.Services.AddSwaggerGen();
-
+			webApplicationbuilder.Services.AddEndpointsApiExplorer().AddSwaggerGen();
+			webApplicationbuilder.Services.AddPersistenceServices(webApplicationbuilder.Configuration);
 			#endregion
 
-			var app = webApplicationbuilder.Build();
+				var app = webApplicationbuilder.Build();
 
 			#region Configure Kestrel Middlewares
 			// Configure the HTTP request pipeline.
@@ -29,7 +29,7 @@ namespace LinkDev.Talabat.APIs
 
 			app.UseHttpsRedirection();
 
-			app.MapControllers(); 
+			app.MapControllers();
 			#endregion
 
 			app.Run();
