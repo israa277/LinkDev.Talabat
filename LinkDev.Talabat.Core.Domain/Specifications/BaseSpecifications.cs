@@ -7,15 +7,19 @@ namespace LinkDev.Talabat.Core.Domain.Specifications
 		where TEntity : BaseEntity<TKey>
 		where TKey : IEquatable<TKey>
 	{
-		public Expression<Func<TEntity,bool>>? Criteria { get; set; } = null;
-		public List<Expression<Func<TEntity, object>>> Includes { get; set; } = new ();
+		public Expression<Func<TEntity, bool>>? Criteria { get; set; } = null;
+		public List<Expression<Func<TEntity, object>>> Includes { get; set; } = new();
 		public Expression<Func<TEntity, object>>? OrderBy { get; set; } = null;
 		public Expression<Func<TEntity, object>>? OrderByDesc { get; set; } = null;
-        protected BaseSpecifications()
-        {
-            
-        }
-        protected BaseSpecifications(Expression<Func<TEntity, bool>> CriteriaExpression)
+		public int Skip { get; set; }
+		public int Take { get; set; }
+		public bool IsPaginationEnabled { get; set; }
+
+		protected BaseSpecifications()
+		{
+
+		}
+		protected BaseSpecifications(Expression<Func<TEntity, bool>> CriteriaExpression)
 		{
 			Criteria = CriteriaExpression;
 		}
@@ -25,9 +29,9 @@ namespace LinkDev.Talabat.Core.Domain.Specifications
 		}
 		private protected virtual void AddIncludes()
 		{
-	
+
 		}
-		private protected virtual void AddOrderBy (Expression<Func<TEntity,object>> orderByExperssion)
+		private protected virtual void AddOrderBy(Expression<Func<TEntity, object>> orderByExperssion)
 		{
 			OrderBy = orderByExperssion;
 		}
@@ -36,5 +40,13 @@ namespace LinkDev.Talabat.Core.Domain.Specifications
 		{
 			OrderByDesc = orderByExperssionDesc;
 		}
+
+		private protected void ApplyPagination(int skip, int take)
+		{
+			IsPaginationEnabled = true;
+			Skip = skip;
+			Take = take;
+		}
+
 	}
 }

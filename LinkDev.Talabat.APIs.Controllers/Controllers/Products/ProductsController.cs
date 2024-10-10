@@ -1,5 +1,6 @@
 ﻿using LinkDev.Talabat.APIs.Controllers.Base;
 using LinkDev.Talabat.Core.Application.Abstraction.Models.Products;
+using LinkDev.Talabat.Core.Application.Abstraction.Products;
 using LinkDev.Talabat.Core.Application.Abstraction.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,9 +9,9 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Products
 	public class ProductsController(IServiceManager serviceManager) : BaseApiController
 	{
 		[HttpGet]
-		public async Task<ActionResult<IEnumerable<ProductToReturnDto>>> GetProducts(string? sort , int? brandId,int? categoryId)
+		public async Task<ActionResult<IEnumerable<ProductToReturnDto>>> GetProducts([FromQuery]ProductSpecParams specParams)
 		{
-			var products = await serviceManager.ProductService.GetProductsAsync(sort , brandId , categoryId);
+			var products = await serviceManager.ProductService.GetProductsAsync(specParams);
 			return Ok(products);
 		}
 

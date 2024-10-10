@@ -18,6 +18,11 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories.Generic_Reposi
 				query =query.OrderByDescending(spec.OrderByDesc);
 			else if(spec.OrderBy is not null)
 				query=query.OrderBy(spec.OrderBy);
+
+			if(spec.IsPaginationEnabled)
+				query =query.Skip(spec.Skip).Take(spec.Take);
+
+
 			query = spec.Includes.Aggregate(query,(currentQuery,includeExpression) => currentQuery.Include(includeExpression));
 
 			return query;
