@@ -11,12 +11,15 @@ namespace LinkDev.Talabat.Core.Domain.Specifications
 		public List<Expression<Func<TEntity, object>>> Includes { get; set; } = new ();
 		public Expression<Func<TEntity, object>>? OrderBy { get; set; } = null;
 		public Expression<Func<TEntity, object>>? OrderByDesc { get; set; } = null;
-
-		public BaseSpecifications()
+        protected BaseSpecifications()
+        {
+            
+        }
+        protected BaseSpecifications(Expression<Func<TEntity, bool>> CriteriaExpression)
 		{
-
+			Criteria = CriteriaExpression;
 		}
-		public BaseSpecifications(TKey id)
+		protected BaseSpecifications(TKey id)
 		{
 			Criteria = E => E.Id.Equals(id);
 		}
