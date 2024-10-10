@@ -3,7 +3,6 @@ using LinkDev.Talabat.Core.Application.Abstraction.Models.Products;
 using LinkDev.Talabat.Core.Application.Abstraction.Services.Products;
 using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
-using LinkDev.Talabat.Core.Domain.Specifications;
 using LinkDev.Talabat.Core.Domain.Specifications.Products;
 
 namespace LinkDev.Talabat.Core.Applicarion.Services.Products
@@ -23,7 +22,9 @@ namespace LinkDev.Talabat.Core.Applicarion.Services.Products
 
 		public async Task<ProductToReturnDto> GetProductsAsync(int id)
 		{
-			var product = await unitOfWork.GetRepository<Product, int>().GetAsync(id);
+			var spec = new ProductWithBrandAndCategorySpecifications(id);
+
+			var product = await unitOfWork.GetRepository<Product, int>().GetAllWithSpecAsync(spec);
 			var productsToReturn = mapper.Map<ProductToReturnDto>(product);
 			return productsToReturn;
 		}
