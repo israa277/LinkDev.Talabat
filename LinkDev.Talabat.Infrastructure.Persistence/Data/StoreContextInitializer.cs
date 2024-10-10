@@ -1,4 +1,4 @@
-﻿using LinkDev.Talabat.Core.Domain.Contracts;
+﻿using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence.Data
 {
-	internal class StoreContextInitializer(StoreContext _dbContext) : IStoreContextInitializer
+    internal class StoreContextInitializer(StoreContext _dbContext) : IStoreContextInitializer
 	{
 	
 		public async Task InitializeAsync()
