@@ -10,6 +10,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Data.Config.Products
 		{
 			base.Configure(builder);
 			builder.Property(P=>P.Name).IsRequired().HasMaxLength(100);
+			builder.Property(P=>P.NormalizedName).IsRequired().HasMaxLength(100);
 			builder.Property(P => P.Description).IsRequired();
 			builder.Property(P=>P.Price).IsRequired().HasColumnType("decimal(9,2)");
 			builder.HasOne(P=>P.Brand).WithMany().HasForeignKey(P=>P.BrandId).OnDelete(DeleteBehavior.SetNull);
