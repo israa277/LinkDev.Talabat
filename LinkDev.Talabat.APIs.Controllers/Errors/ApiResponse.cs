@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LinkDev.Talabat.APIs.Controllers.Errors
+﻿namespace LinkDev.Talabat.APIs.Controllers.Errors
 {
-	internal class ApiResponse
+	public class ApiResponse
 	{
 		public int StatusCode { get; set; }
 		public string? Message { get; set; }
