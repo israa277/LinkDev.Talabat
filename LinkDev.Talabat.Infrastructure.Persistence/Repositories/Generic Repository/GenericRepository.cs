@@ -7,7 +7,7 @@ using LinkDev.Talabat.Infrastructure.Persistence.Repositories.Generic_Repository
 namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories
 {
 	internal class GenericRepository<TEntity, TKey>(StoreContext _dbContext) : IGenericRepository<TEntity, TKey>
-		where TEntity : BaseAuditableEntity<TKey>
+		where TEntity : BaseEntity<TKey>
 		where TKey : IEquatable<TKey>
 	{
 
@@ -37,6 +37,13 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories
 			return await ApplySpecifications(spec).FirstOrDefaultAsync();
 
 		}
+
+		public async Task<int> GetCountAsyn(ISpecifications<TEntity, TKey> spec)
+		{
+			return await ApplySpecifications(spec).CountAsync();
+
+		}
+
 		public async Task AddAsync(TEntity entity)
 		=> await _dbContext.Set<TEntity>().AddAsync(entity);
 
@@ -48,6 +55,8 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories
 		{
 			return SpecificationsEvaluator<TEntity,TKey>.GetQuery(_dbContext.Set<TEntity>(), spec);
 		}
+
+		
 		#endregion
 	}
 }
