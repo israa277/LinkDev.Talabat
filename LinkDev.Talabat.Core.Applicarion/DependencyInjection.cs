@@ -25,7 +25,7 @@ namespace LinkDev.Talabat.Core.Applicarion
 				var mapper = serviceProvider.GetRequiredService<IMapper>();
 				var configuration = serviceProvider.GetRequiredService<IConfiguration>();
 				var basketRepository = serviceProvider.GetRequiredService<IBasketRepository>();
-				return new BasketService(basketRepository , mapper , configuration);
+				return () => new BasketService(basketRepository , mapper , configuration);
 			});
 			return services;
 
