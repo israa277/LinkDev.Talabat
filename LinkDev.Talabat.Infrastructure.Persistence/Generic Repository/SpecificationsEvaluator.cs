@@ -2,7 +2,7 @@
 using LinkDev.Talabat.Core.Domain.Contracts;
 using System.Collections.Concurrent;
 
-namespace LinkDev.Talabat.Infrastructure.Persistence.Repositories.Generic_Repository
+namespace LinkDev.Talabat.Infrastructure.Persistence.Generic_Repository
 {
 	internal static class SpecificationsEvaluator<TEntity, TKey>
 		where TEntity : BaseEntity<TKey>

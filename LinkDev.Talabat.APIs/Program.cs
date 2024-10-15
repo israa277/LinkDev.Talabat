@@ -6,7 +6,7 @@ using LinkDev.Talabat.Core.Applicarion;
 using LinkDev.Talabat.Core.Application.Abstraction;
 using LinkDev.Talabat.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
-
+using LinkDev.Talabat.Infrastructure;
 namespace LinkDev.Talabat.APIs
 {
 	public class Program
@@ -38,22 +38,7 @@ namespace LinkDev.Talabat.APIs
 				})
 				.AddApplicationPart(typeof(Controllers.AssemblyInformation).Assembly);
 
-			webApplicationbuilder.Services.Configure<ApiBehaviorOptions>(options =>
-			{
-				options.SuppressModelStateInvalidFilter = false;
-				options.InvalidModelStateResponseFactory = (actionContext) =>
-				{
-					var errors = actionContext.ModelState.Where(P => P.Value!.Errors.Count > 0)
-				.SelectMany(P => P.Value!.Errors)
-				.Select(E => E.ErrorMessage);
-
-					return new BadRequestObjectResult(new ApiValidationErrorResponse()
-					{
-						Errors = errors
-					});
-
-				};
-			});
+	
 			
 			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 			webApplicationbuilder.Services.AddEndpointsApiExplorer().AddSwaggerGen();
@@ -65,6 +50,7 @@ namespace LinkDev.Talabat.APIs
 			webApplicationbuilder.Services.AddPersistenceServices(webApplicationbuilder.Configuration);
 			webApplicationbuilder.Services.AddApplicationServices();
 
+			webApplicationbuilder.Services.AddInfrastructureServices(webApplicationbuilder.Configuration);
 			#endregion
 
 			var app = webApplicationbuilder.Build();
