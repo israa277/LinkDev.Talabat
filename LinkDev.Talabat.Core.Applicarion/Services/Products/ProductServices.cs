@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LinkDev.Talabat.Core.Applicarion.Exceptions;
 using LinkDev.Talabat.Core.Application.Abstraction.Common;
 using LinkDev.Talabat.Core.Application.Abstraction.Models.Products;
 using LinkDev.Talabat.Core.Application.Abstraction.Products;
@@ -28,6 +29,10 @@ namespace LinkDev.Talabat.Core.Applicarion.Services.Products
 			var spec = new ProductWithBrandAndCategorySpecifications(id);
 
 			var product = await unitOfWork.GetRepository<Product, int>().GetAllWithSpecAsync(spec);
+			
+			if(product is null)
+				throw new NotFoundException(nameof(Product),id);
+			
 			var productsToReturn = mapper.Map<ProductToReturnDto>(product);
 			return productsToReturn;
 		}

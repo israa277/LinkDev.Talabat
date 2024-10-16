@@ -21,10 +21,12 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Products
 		public async Task<ActionResult<ProductToReturnDto>> GetProduct(int id)
 		{
 			var product = await serviceManager.ProductService.GetProductsAsync(id);	
-			if(product == null)
-			{
-				return NotFound(new ApiResponse(404 , $"the Product with id:{id} is not found"));
-			}
+			//if(product == null)
+			//{
+			//	return NotFound(new ApiResponse(404 , $"the Product with id:{id} is not found"));
+			//}
+
+
 			return Ok(product);
 		}
 
