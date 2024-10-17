@@ -1,9 +1,12 @@
+using LinkDev.Talabat.APIs.Controllers.Errors;
 using LinkDev.Talabat.APIs.Extensions;
+using LinkDev.Talabat.APIs.Middlewares;
 using LinkDev.Talabat.APIs.Services;
 using LinkDev.Talabat.Core.Applicarion;
 using LinkDev.Talabat.Core.Application.Abstraction;
 using LinkDev.Talabat.Infrastructure.Persistence;
-
+using Microsoft.AspNetCore.Mvc;
+using LinkDev.Talabat.Infrastructure;
 namespace LinkDev.Talabat.APIs
 {
 	public class Program
@@ -16,7 +19,30 @@ namespace LinkDev.Talabat.APIs
 			#region Configure Services
 			// Add services to the container.
 
-			webApplicationbuilder.Services.AddControllers().AddApplicationPart(typeof(Controllers.AssemblyInformation).Assembly);
+			webApplicationbuilder.Services.AddControllers()
+				.ConfigureApiBehaviorOptions(options =>
+				{
+					options.SuppressModelStateInvalidFilter = false;
+					options.InvalidModelStateResponseFactory = (actionContext) =>
+					{
+						var errors = actionContext.ModelState.Where(P => P.Value!.Errors.Count > 0)
+					.Select(P => new ApiValidationErrorResponse.ValidationError()
+					{
+						Field = P.Key,
+						Errors = P.Value!.Errors.Select(E=>E.ErrorMessage)
+					});
+
+						return new BadRequestObjectResult(new ApiValidationErrorResponse()
+						{
+							Errors = errors
+						});
+
+					};
+				})
+				.AddApplicationPart(typeof(Controllers.AssemblyInformation).Assembly);
+
+	
+			
 			// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 			webApplicationbuilder.Services.AddEndpointsApiExplorer().AddSwaggerGen();
 
@@ -27,6 +53,7 @@ namespace LinkDev.Talabat.APIs
 			webApplicationbuilder.Services.AddPersistenceServices(webApplicationbuilder.Configuration);
 			webApplicationbuilder.Services.AddApplicationServices();
 
+			webApplicationbuilder.Services.AddInfrastructureServices(webApplicationbuilder.Configuration);
 			#endregion
 
 			var app = webApplicationbuilder.Build();
@@ -38,6 +65,9 @@ namespace LinkDev.Talabat.APIs
 
 			#region Configure Kestrel Middlewares
 			// Configure the HTTP request pipeline.
+
+			app.UseMiddleware<ExceptionHandlerMiddelware>();
+
 			if (app.Environment.IsDevelopment())
 			{
 				app.UseSwagger();
@@ -46,6 +76,11 @@ namespace LinkDev.Talabat.APIs
 
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
+
+			app.UseStatusCodePagesWithReExecute("/Errors/{0}");
+
+			app.UseAuthentication();
+			app.UseAuthorization();
 			app.MapControllers();
 			#endregion
 
