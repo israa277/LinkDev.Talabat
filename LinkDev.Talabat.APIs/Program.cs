@@ -4,6 +4,7 @@ using LinkDev.Talabat.APIs.Middlewares;
 using LinkDev.Talabat.APIs.Services;
 using LinkDev.Talabat.Core.Applicarion;
 using LinkDev.Talabat.Core.Application.Abstraction;
+using LinkDev.Talabat.Core.Application.Abstraction.Models.Auth;
 using LinkDev.Talabat.Core.Domain.Entities.Identity;
 using LinkDev.Talabat.Infrastructure;
 using LinkDev.Talabat.Infrastructure.Persistence;
@@ -55,35 +56,7 @@ namespace LinkDev.Talabat.APIs
 			webApplicationbuilder.Services.AddApplicationServices();
 			webApplicationbuilder.Services.AddPersistenceServices(webApplicationbuilder.Configuration);
 			webApplicationbuilder.Services.AddInfrastructureServices(webApplicationbuilder.Configuration);
-
-			//webApplicationbuilder.Services.AddIdentity<ApplicationUser, IdentityRole>();
-			webApplicationbuilder.Services.AddIdentity<ApplicationUser, IdentityRole>((identityOptions) =>
-			{
-				identityOptions.SignIn.RequireConfirmedAccount = true;
-				identityOptions.SignIn.RequireConfirmedEmail = true;
-				identityOptions.SignIn.RequireConfirmedPhoneNumber = true;	
-				
-				
-				//identityOptions.Password.RequireNonAlphanumeric = true;
-				//identityOptions.Password.RequiredUniqueChars = 2;
-				//identityOptions.Password.RequiredLength = 6;
-				//identityOptions.Password.RequireDigit = true;
-				//identityOptions.Password.RequireUppercase = true;
-
-				identityOptions.User.RequireUniqueEmail = true;
-				//identityOptions.User.AllowedUserNameCharacters = "abcdenkotlog93124568_-+@#$"
-			
-				identityOptions.Lockout.AllowedForNewUsers = true;
-				identityOptions.Lockout.MaxFailedAccessAttempts = 5;
-				identityOptions.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(12);
-
-				//identityOptions.Stores;
-				//identityOptions.Tokens
-				//identityOptions.ClaimsIdentity
-			
-			}).AddEntityFrameworkStores<StoreIdentityDbContext>();
-		
-			
+			webApplicationbuilder.Services.AddIdentityServices(webApplicationbuilder.Configuration);
 			#endregion
 
 			var app = webApplicationbuilder.Build();
