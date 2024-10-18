@@ -3,13 +3,16 @@ using LinkDev.Talabat.Core.Application.Abstraction.Auth;
 using LinkDev.Talabat.Core.Application.Abstraction.Models.Auth;
 using LinkDev.Talabat.Core.Domain.Entities.Identity;
 using LinkDev.Talabat.Infrastructure.Persistence.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace LinkDev.Talabat.APIs.Extensions
 {
 	public static class IdentityExtensions
 	{
-		public static IServiceCollection AddIdentityServices(this IServiceCollection services ,IConfiguration configuration)
+		public static IServiceCollection AddIdentityServices(this IServiceCollection services, IConfiguration configuration)
 		{
 			services.Configure<JwtSettings>(configuration.GetSection("JWTSettings"));
 
@@ -39,6 +42,32 @@ namespace LinkDev.Talabat.APIs.Extensions
 				//identityOptions.ClaimsIdentity
 
 			}).AddEntityFrameworkStores<StoreIdentityDbContext>();
+
+
+			services.AddAuthentication((authenctionOptions) =>
+			{
+				authenctionOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+				authenctionOptions.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+			})
+				.AddJwtBearer((options) =>
+				{
+					options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+					{
+						ValidateAudience = true,
+						ValidateIssuer = true,
+						ValidateLifetime = true,
+						ValidateIssuerSigningKey = true,
+
+						ValidAudience = configuration["JWTSettings:Audience"],
+						ValidIssuer = configuration["JWTSettings:Issuer"],
+						IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWTSettings:Key"]!)),
+						ClockSkew = TimeSpan.Zero
+
+
+					};
+				});
+				
+
 
 			services.AddScoped(typeof(IAuthService), typeof(AuthService));
 

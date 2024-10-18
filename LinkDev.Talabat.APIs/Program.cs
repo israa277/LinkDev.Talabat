@@ -4,12 +4,8 @@ using LinkDev.Talabat.APIs.Middlewares;
 using LinkDev.Talabat.APIs.Services;
 using LinkDev.Talabat.Core.Applicarion;
 using LinkDev.Talabat.Core.Application.Abstraction;
-using LinkDev.Talabat.Core.Application.Abstraction.Models.Auth;
-using LinkDev.Talabat.Core.Domain.Entities.Identity;
 using LinkDev.Talabat.Infrastructure;
 using LinkDev.Talabat.Infrastructure.Persistence;
-using LinkDev.Talabat.Infrastructure.Persistence.Identity;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 namespace LinkDev.Talabat.APIs
 {
