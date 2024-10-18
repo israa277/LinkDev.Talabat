@@ -1,4 +1,6 @@
-﻿using LinkDev.Talabat.Core.Application.Abstraction.Models.Auth;
+﻿using LinkDev.Talabat.Core.Applicarion.Services.Auth;
+using LinkDev.Talabat.Core.Application.Abstraction.Auth;
+using LinkDev.Talabat.Core.Application.Abstraction.Models.Auth;
 using LinkDev.Talabat.Core.Domain.Entities.Identity;
 using LinkDev.Talabat.Infrastructure.Persistence.Identity;
 using Microsoft.AspNetCore.Identity;
@@ -14,9 +16,9 @@ namespace LinkDev.Talabat.APIs.Extensions
 			//webApplicationbuilder.Services.AddIdentity<ApplicationUser, IdentityRole>();
 			services.AddIdentity<ApplicationUser, IdentityRole>((identityOptions) =>
 			{
-				identityOptions.SignIn.RequireConfirmedAccount = true;
-				identityOptions.SignIn.RequireConfirmedEmail = true;
-				identityOptions.SignIn.RequireConfirmedPhoneNumber = true;
+				//identityOptions.SignIn.RequireConfirmedAccount = true;
+				//identityOptions.SignIn.RequireConfirmedEmail = true;
+				//identityOptions.SignIn.RequireConfirmedPhoneNumber = true;
 
 
 				//identityOptions.Password.RequireNonAlphanumeric = true;
@@ -37,6 +39,14 @@ namespace LinkDev.Talabat.APIs.Extensions
 				//identityOptions.ClaimsIdentity
 
 			}).AddEntityFrameworkStores<StoreIdentityDbContext>();
+
+			services.AddScoped(typeof(IAuthService), typeof(AuthService));
+
+			services.AddScoped(typeof(Func<IAuthService>), (serviceProvider) =>
+			{
+
+				return () => serviceProvider.GetRequiredService<IAuthService>();
+			});
 
 			return services;
 		}
