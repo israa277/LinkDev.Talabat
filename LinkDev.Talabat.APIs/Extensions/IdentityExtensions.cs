@@ -49,9 +49,9 @@ namespace LinkDev.Talabat.APIs.Extensions
 				authenctionOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
 				authenctionOptions.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 			})
-				.AddJwtBearer((options) =>
+				.AddJwtBearer((configurationOptions) =>
 				{
-					options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+					configurationOptions.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
 					{
 						ValidateAudience = true,
 						ValidateIssuer = true,
