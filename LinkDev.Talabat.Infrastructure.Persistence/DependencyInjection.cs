@@ -14,7 +14,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence
 	{
 		public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
 		{
-			#region Store DbContext
+			#region Store Context
 			services.AddDbContext<StoreDbContext>((optionsBuilder) =>
 				{
 					optionsBuilder
@@ -27,7 +27,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence
 			services.AddScoped(typeof(ISaveChangesInterceptor), typeof(CustomSaveChangesInterceptor));
 			#endregion
 
-			#region Identity DbContext
+			#region Identity Context
 			services.AddDbContext<StoreIdentityDbContext>((optionsBuilder) =>
 			{
 				optionsBuilder

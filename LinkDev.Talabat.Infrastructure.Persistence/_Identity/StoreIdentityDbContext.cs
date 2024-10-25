@@ -21,5 +21,6 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.Identity
 			builder.ApplyConfiguration(new AddressConfigurations());
 		}
 
+
 	}
 }
