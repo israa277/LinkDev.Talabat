@@ -1,10 +1,13 @@
 ﻿using LinkDev.Talabat.Core.Domain.Entities.Identity;
+using LinkDev.Talabat.Infrastructure.Persistence._Common;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LinkDev.Talabat.Infrastructure.Persistence.Identity.Config
 {
+	[DbContextType(typeof(StoreIdentityDbContext))]
 	internal class AddressConfigurations : IEntityTypeConfiguration<Address>
 	{
+
 		public void Configure(EntityTypeBuilder<Address> builder)
 		{
 			builder.Property(nameof(Address.Id)).ValueGeneratedOnAdd();
