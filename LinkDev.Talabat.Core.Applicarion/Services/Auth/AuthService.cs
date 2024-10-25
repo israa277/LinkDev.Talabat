@@ -22,7 +22,10 @@ namespace LinkDev.Talabat.Core.Applicarion.Services.Auth
 			var user = await userManager.FindByEmailAsync(model.Email);
 			if (user is null) throw new UnAuthorizedException("Invalid Login");
 			var result = await signInManager.CheckPasswordSignInAsync(user, model.Password, lockoutOnFailure: true);
-			if (!result.Succeeded) throw new UnAuthorizedException("Invalid Login");
+			if (!result.IsNotAllowed) throw new UnAuthorizedException("Account not confirmed yet");
+			if (!result.IsLockedOut) throw new UnAuthorizedException("Account is locked");
+			//if (!result.RequiresTwoFactor) throw new UnAuthorizedException("Requires Two-Factor Authenication.");
+			if (!result.Succeeded) throw new UnAuthorizedException("Invalid Login.");
 
 			var response = new UserDto()
 			{
@@ -42,7 +45,7 @@ namespace LinkDev.Talabat.Core.Applicarion.Services.Auth
 				DisplayName = model.DisplayName,
 				Email = model.Email,
 				UserName = model.UserName,
-				PhoneNumber = model.Phone
+				PhoneNumber = model.PhoneNumber
 			};
 			var result = await userManager.CreateAsync(user, model.Password);
 			if (!result.Succeeded) throw new ValidationException() { Errors = result.Errors.Select(E => E.Description) };
