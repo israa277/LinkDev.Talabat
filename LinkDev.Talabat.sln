@@ -21,19 +21,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dashboard", "Dashboard", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkDev.Talabat.APIs", "LinkDev.Talabat.APIs\LinkDev.Talabat.APIs.csproj", "{3A92CE3D-9696-4725-AA2E-76EAB0149676}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkDev.Talabat.Core.Domain", "LinkDev.Talabat.Core.Domain\LinkDev.Talabat.Core.Domain.csproj", "{510758B6-3946-4072-96E4-91E2E48691AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkDev.Talabat.Core.Domain", "LinkDev.Talabat.Core.Domain\LinkDev.Talabat.Core.Domain.csproj", "{510758B6-3946-4072-96E4-91E2E48691AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkDev.Talabat.Core.Applicarion", "LinkDev.Talabat.Core.Applicarion\LinkDev.Talabat.Core.Applicarion.csproj", "{44C70A82-369A-45C9-B642-EFBF8E6305DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkDev.Talabat.Core.Applicarion", "LinkDev.Talabat.Core.Applicarion\LinkDev.Talabat.Core.Applicarion.csproj", "{44C70A82-369A-45C9-B642-EFBF8E6305DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkDev.Talabat.Core.Application.Abstraction", "LinkDev.Talabat.Core.Application.Abstraction\LinkDev.Talabat.Core.Application.Abstraction.csproj", "{D1963E32-6241-4D8D-9DDD-AABE459C6DDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkDev.Talabat.Core.Application.Abstraction", "LinkDev.Talabat.Core.Application.Abstraction\LinkDev.Talabat.Core.Application.Abstraction.csproj", "{D1963E32-6241-4D8D-9DDD-AABE459C6DDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkDev.Talabat.Infrastructure", "LinkDev.Talabat.Infrastructure\LinkDev.Talabat.Infrastructure.csproj", "{1F1B1BA0-415C-480A-BD6B-1B4B2210DAD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkDev.Talabat.Infrastructure", "LinkDev.Talabat.Infrastructure\LinkDev.Talabat.Infrastructure.csproj", "{1F1B1BA0-415C-480A-BD6B-1B4B2210DAD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkDev.Talabat.Infrastructure.Persistence", "LinkDev.Talabat.Infrastructure.Persistence\LinkDev.Talabat.Infrastructure.Persistence.csproj", "{4FE2A248-8891-414D-8512-69FC17858E13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkDev.Talabat.Infrastructure.Persistence", "LinkDev.Talabat.Infrastructure.Persistence\LinkDev.Talabat.Infrastructure.Persistence.csproj", "{4FE2A248-8891-414D-8512-69FC17858E13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkDev.Talabat.Dashboard", "LinkDev.Talabat.Dashboard\LinkDev.Talabat.Dashboard.csproj", "{88C7BAC6-E3BF-4920-A020-BA78ADC0E163}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkDev.Talabat.Dashboard", "LinkDev.Talabat.Dashboard\LinkDev.Talabat.Dashboard.csproj", "{88C7BAC6-E3BF-4920-A020-BA78ADC0E163}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkDev.Talabat.APIs.Controllers", "LinkDev.Talabat.APIs.Controllers\LinkDev.Talabat.APIs.Controllers.csproj", "{97A71BCA-08E6-4FE1-A9C8-FDAD689B411E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinkDev.Talabat.APIs.Controllers", "LinkDev.Talabat.APIs.Controllers\LinkDev.Talabat.APIs.Controllers.csproj", "{97A71BCA-08E6-4FE1-A9C8-FDAD689B411E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,7 +85,7 @@ Global
 		{0BCC0737-50B5-4787-B8E0-188FB215A7A1} = {65288124-9179-4804-BC11-9137793FA331}
 		{57F644E7-E86D-4E03-AEE9-AD0FC5060C3F} = {65288124-9179-4804-BC11-9137793FA331}
 		{3A92CE3D-9696-4725-AA2E-76EAB0149676} = {3F05AC70-0113-4049-87E7-0FB2CBAC5B2D}
-		{510758B6-3946-4072-96E4-91E2E48691AA} = {D8B96B7E-9790-4EEC-9E32-D7684F767A00}
+		{510758B6-3946-4072-96E4-91E2E48691AA} = {87EE67C1-4684-4819-91EE-2D41AC9787E2}
 		{44C70A82-369A-45C9-B642-EFBF8E6305DC} = {D8B96B7E-9790-4EEC-9E32-D7684F767A00}
 		{D1963E32-6241-4D8D-9DDD-AABE459C6DDD} = {D8B96B7E-9790-4EEC-9E32-D7684F767A00}
 		{1F1B1BA0-415C-480A-BD6B-1B4B2210DAD2} = {87EE67C1-4684-4819-91EE-2D41AC9787E2}

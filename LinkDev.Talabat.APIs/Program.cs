@@ -4,9 +4,9 @@ using LinkDev.Talabat.APIs.Middlewares;
 using LinkDev.Talabat.APIs.Services;
 using LinkDev.Talabat.Core.Applicarion;
 using LinkDev.Talabat.Core.Application.Abstraction;
+using LinkDev.Talabat.Infrastructure;
 using LinkDev.Talabat.Infrastructure.Persistence;
 using Microsoft.AspNetCore.Mvc;
-using LinkDev.Talabat.Infrastructure;
 namespace LinkDev.Talabat.APIs
 {
 	public class Program
@@ -49,17 +49,16 @@ namespace LinkDev.Talabat.APIs
 			webApplicationbuilder.Services.AddHttpContextAccessor();
 
 			webApplicationbuilder.Services.AddScoped(typeof(ILoggedInUserService), typeof(LoggedInUserService));
-
-			webApplicationbuilder.Services.AddPersistenceServices(webApplicationbuilder.Configuration);
 			webApplicationbuilder.Services.AddApplicationServices();
-
+			webApplicationbuilder.Services.AddPersistenceServices(webApplicationbuilder.Configuration);
 			webApplicationbuilder.Services.AddInfrastructureServices(webApplicationbuilder.Configuration);
+			webApplicationbuilder.Services.AddIdentityServices(webApplicationbuilder.Configuration);
 			#endregion
 
 			var app = webApplicationbuilder.Build();
 
 			#region Databases Initialization
-			await app.InitializerStoreContextAsync();
+			await app.InitializerDbAsync();
 
 			#endregion
 
