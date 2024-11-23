@@ -50,23 +50,24 @@ namespace LinkDev.Talabat.Core.Applicarion.Services.Orders
             var subTotal = orderItems.Sum(item => item.Price * item.Quantity);
             // 4. Map Address
 
-           var address = mapper.Map<Address>(order.ShippingAddress);
-
-            // 4. Create Order
+            var address = mapper.Map<Address>(order.ShippingAddress);
+            //5.Get Delivery Method
+            var delivaryMethod = await unitOfWork.GetRepository<DeliveryMethod, int>().GetAsync(order.DeliveryMethodId);
+            // 6. Create Order
             var orderToCreate = new Order()
             {
                 BuyerEmail = buyerEmail,
                 ShippingAddress = address,
-                DeliveryMethodId = order.DeliveryMethodId,
+                DeliveryMethod = delivaryMethod,
                 Items = orderItems,
                 Subtotal = subTotal,
             };
             await unitOfWork.GetRepository<Order, int>().AddAsync(orderToCreate);
-            // 5.Save To DataBase
+            // 7.Save To DataBase
             var created = await unitOfWork.CompleteAsync() > 0;
             if (!created) throw new BadRequestException("AN Error has occured during creating the order");
-        
-        return mapper.Map<OrderToReturnDto>(orderToCreate);
+
+            return mapper.Map<OrderToReturnDto>(orderToCreate);
         }
         public async Task<IEnumerable<OrderToReturnDto>> GetOrderForUserAsync(string buyerEmail)
         {
@@ -80,7 +81,7 @@ namespace LinkDev.Talabat.Core.Applicarion.Services.Orders
 
             var orderSpecs = new OrderSpecifications(buyerEmail, orderId);
             var order = await unitOfWork.GetRepository<Order, int>().GetAllWithSpecAsync(orderSpecs);
-           if(order is null) throw new NotFoundException(nameof(Order),orderId);
+            if (order is null) throw new NotFoundException(nameof(Order), orderId);
             return mapper.Map<OrderToReturnDto>(order);
         }
         public async Task<IEnumerable<DeliveryMethodDto>> GetDeliveryMethodAsync()
@@ -89,8 +90,8 @@ namespace LinkDev.Talabat.Core.Applicarion.Services.Orders
             return mapper.Map<IEnumerable<DeliveryMethodDto>>(deliveryMethods);
         }
 
-      
 
-       
+
+
     }
 }
