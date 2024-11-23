@@ -7,6 +7,7 @@ using LinkDev.Talabat.Core.Application.Abstraction.Services.Orders;
 using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Core.Domain.Entities.Orders;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
+using LinkDev.Talabat.Core.Domain.Specifications.Orders;
 
 namespace LinkDev.Talabat.Core.Applicarion.Services.Orders
 {
@@ -67,20 +68,29 @@ namespace LinkDev.Talabat.Core.Applicarion.Services.Orders
         
         return mapper.Map<OrderToReturnDto>(orderToCreate);
         }
-
-        public Task<IEnumerable<DeliveryMethodDto>> GetDeliveryMethodAsync()
+        public async Task<IEnumerable<OrderToReturnDto>> GetOrderForUserAsync(string buyerEmail)
         {
-            throw new NotImplementedException();
+            var orderSpecs = new OrderSpecifications(buyerEmail);
+            var orders = await unitOfWork.GetRepository<Order, int>().GetAllWithSpecAsync(orderSpecs);
+            return mapper.Map<IEnumerable<OrderToReturnDto>>(orders);
         }
 
-        public Task<OrderToReturnDto> GetOrderByIdAsync(string buyerEmail, int orderId)
+        public async Task<OrderToReturnDto> GetOrderByIdAsync(string buyerEmail, int orderId)
         {
-            throw new NotImplementedException();
+
+            var orderSpecs = new OrderSpecifications(buyerEmail, orderId);
+            var order = await unitOfWork.GetRepository<Order, int>().GetAllWithSpecAsync(orderSpecs);
+           if(order is null) throw new NotFoundException(nameof(Order),orderId);
+            return mapper.Map<OrderToReturnDto>(order);
+        }
+        public async Task<IEnumerable<DeliveryMethodDto>> GetDeliveryMethodAsync()
+        {
+            var deliveryMethods = await unitOfWork.GetRepository<DeliveryMethod, int>().GetAllAsync();
+            return mapper.Map<IEnumerable<DeliveryMethodDto>>(deliveryMethods);
         }
 
-        public Task<IEnumerable<OrderToReturnDto>> GetOrderForUserAsync(string buyerEmail)
-        {
-            throw new NotImplementedException();
-        }
+      
+
+       
     }
 }
