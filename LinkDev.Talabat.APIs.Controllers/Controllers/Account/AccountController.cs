@@ -1,6 +1,7 @@
 ﻿using LinkDev.Talabat.APIs.Controllers.Base;
 using LinkDev.Talabat.Core.Application.Abstraction.Models.Auth;
 using LinkDev.Talabat.Core.Application.Abstraction.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LinkDev.Talabat.APIs.Controllers.Controllers.Account
@@ -21,5 +22,16 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Account
 			var response = await serviceManager.AuthService.RegisterAsync(model);
 			return Ok(response);
 		}
-	}
+
+		[Authorize]
+		[HttpGet("getcurrentuser")] //GET : /api/account/getcurrentuser
+
+        public async Task<ActionResult<UserDto>> GetCurrentUser()
+        {
+            var result = await serviceManager.AuthService.GetCurrentUser(User);
+            return Ok(result);
+        }
+
+
+    }
 }

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using LinkDev.Talabat.Core.Applicarion.Services.Employees;
 using LinkDev.Talabat.Core.Applicarion.Services.Products;
-using LinkDev.Talabat.Core.Application.Abstraction.Auth;
+using LinkDev.Talabat.Core.Application.Abstraction.Services.Auth;
 using LinkDev.Talabat.Core.Application.Abstraction.Services;
 using LinkDev.Talabat.Core.Application.Abstraction.Services.Basket;
 using LinkDev.Talabat.Core.Application.Abstraction.Services.Employees;

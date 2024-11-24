@@ -1,5 +1,5 @@
 ﻿using LinkDev.Talabat.Core.Applicarion.Services.Auth;
-using LinkDev.Talabat.Core.Application.Abstraction.Auth;
+using LinkDev.Talabat.Core.Application.Abstraction.Services.Auth;
 using LinkDev.Talabat.Core.Application.Abstraction.Models.Auth;
 using LinkDev.Talabat.Core.Domain.Entities.Identity;
 using LinkDev.Talabat.Infrastructure.Persistence.Identity;
