@@ -35,13 +35,23 @@ namespace LinkDev.Talabat.Core.Applicarion.Services.Auth
             };
         }
 
-        public async Task<AddressDto> GetUserAddress(ClaimsPrincipal claimsPrincipal)
+        public async Task<AddressDto?> GetUserAddress(ClaimsPrincipal claimsPrincipal)
         {
             var user = await userManager.FindUserWithAddress(claimsPrincipal!);
             var address = mapper.Map<AddressDto>(user!.Address);
             return address;
         }
-
+        public async Task<AddressDto> UpdateUserAddress(ClaimsPrincipal claimsPrincipal, AddressDto addressDto)
+        {
+            var user = await userManager.FindUserWithAddress(claimsPrincipal!);
+            var updateAddress = mapper.Map<Address>(addressDto);
+            if (user?.Address is not null)
+                updateAddress.Id = user.Address.Id;
+            user!.Address = updateAddress;
+            var result = await userManager.UpdateAsync(user);
+            if (!result.Succeeded) throw new BadRequestException(result.Errors.Select(error => error.Description).Aggregate((X, Y) => $"{X},{Y}"));
+            return addressDto;
+        }
         public async Task<UserDto> LoginAsync(LoginDto model)
         {
             var user = await userManager.FindByEmailAsync(model.Email);
@@ -85,8 +95,6 @@ namespace LinkDev.Talabat.Core.Applicarion.Services.Auth
             return response;
 
         }
-
-
         private async Task<string> GenerateTokenAsync(ApplicationUser user)
         {
             var userClamis = await userManager.GetClaimsAsync(user);
