@@ -1,4 +1,5 @@
-﻿using LinkDev.Talabat.APIs.Controllers.Base;
+﻿using System.Security.Claims;
+using LinkDev.Talabat.APIs.Controllers.Base;
 using LinkDev.Talabat.Core.Application.Abstraction.Models._Common;
 using LinkDev.Talabat.Core.Application.Abstraction.Models.Auth;
 using LinkDev.Talabat.Core.Application.Abstraction.Services;
@@ -52,5 +53,12 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Account
             return Ok(result);
         }
 
+      
+        [HttpGet("emailexists")] //GET : /api/account/emailexists?email=israa.ahmed277@gmail.com
+
+        public async Task<ActionResult<AddressDto>> CheckEmailExists(string email)
+        {
+            return Ok(await serviceManager.AuthService.EmailExists(email!));
+        }
     }
 }

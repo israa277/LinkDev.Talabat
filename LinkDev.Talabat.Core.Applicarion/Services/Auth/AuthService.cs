@@ -34,7 +34,10 @@ namespace LinkDev.Talabat.Core.Applicarion.Services.Auth
                 Token = await GenerateTokenAsync(user)
             };
         }
-
+        public async Task<bool> EmailExists(string email)
+        {
+            return await userManager.FindByEmailAsync(email) is not null;
+        }
         public async Task<AddressDto?> GetUserAddress(ClaimsPrincipal claimsPrincipal)
         {
             var user = await userManager.FindUserWithAddress(claimsPrincipal!);
@@ -75,6 +78,8 @@ namespace LinkDev.Talabat.Core.Applicarion.Services.Auth
 
         public async Task<UserDto> RegisterAsync(RegisterDto model)
         {
+            //if (EmailExists(model.Email).Result)
+            //    throw new BadRequestException("This email is already in user");
             var user = new ApplicationUser()
             {
                 DisplayName = model.DisplayName,
@@ -83,7 +88,7 @@ namespace LinkDev.Talabat.Core.Applicarion.Services.Auth
                 PhoneNumber = model.PhoneNumber
             };
             var result = await userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded) throw new ValidationException() { Errors = result.Errors.Select(E => E.Description) };
+            if (!result.Succeeded) throw new ValidationException() { Errors = result.Errors.Select(E => E.Description)};
             var response = new UserDto()
             {
                 Id = user.Id,
@@ -125,5 +130,6 @@ namespace LinkDev.Talabat.Core.Applicarion.Services.Auth
             return new JwtSecurityTokenHandler().WriteToken(tokenObj);
         }
 
+      
     }
 }
