@@ -8,10 +8,14 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using LinkDev.Talabat.Core.Application.Abstraction.Models._Common;
+using AutoMapper;
+using LinkDev.Talabat.Core.Applicarion.Extensions;
 
 namespace LinkDev.Talabat.Core.Applicarion.Services.Auth
 {
     public class AuthService(
+        IMapper mapper,
         IOptions<JwtSettings> jwtSettings,
         UserManager<ApplicationUser> userManager,
         SignInManager<ApplicationUser> signInManager) : IAuthService
@@ -29,6 +33,13 @@ namespace LinkDev.Talabat.Core.Applicarion.Services.Auth
                 Email = user!.Email!,
                 Token = await GenerateTokenAsync(user)
             };
+        }
+
+        public async Task<AddressDto> GetUserAddress(ClaimsPrincipal claimsPrincipal)
+        {
+            var user = await userManager.FindUserWithAddress(claimsPrincipal!);
+            var address = mapper.Map<AddressDto>(user!.Address);
+            return address;
         }
 
         public async Task<UserDto> LoginAsync(LoginDto model)
