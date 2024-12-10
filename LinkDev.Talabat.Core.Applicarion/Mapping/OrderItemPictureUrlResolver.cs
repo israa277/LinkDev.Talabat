@@ -5,7 +5,7 @@ using LinkDev.Talabat.Core.Domain.Entities.Orders;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
 using Microsoft.Extensions.Configuration;
 
-namespace LinkDev.Talabat.Core.Applicarion.Mapping
+namespace LinkDev.Talabat.Core.Application.Mapping
 {
 	internal class OrderItemPictureUrlResolver(IConfiguration configuration) : IValueResolver<OrderItem, OrderItemDto, string>
 	{

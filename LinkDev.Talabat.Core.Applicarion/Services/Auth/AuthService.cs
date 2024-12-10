@@ -1,4 +1,4 @@
-﻿using LinkDev.Talabat.Core.Applicarion.Exceptions;
+﻿using LinkDev.Talabat.Core.Application.Exceptions;
 using LinkDev.Talabat.Core.Application.Abstraction.Services.Auth;
 using LinkDev.Talabat.Core.Application.Abstraction.Models.Auth;
 using LinkDev.Talabat.Core.Domain.Entities.Identity;
@@ -10,9 +10,9 @@ using System.Security.Claims;
 using System.Text;
 using LinkDev.Talabat.Core.Application.Abstraction.Models._Common;
 using AutoMapper;
-using LinkDev.Talabat.Core.Applicarion.Extensions;
+using LinkDev.Talabat.Core.Application.Extensions;
 
-namespace LinkDev.Talabat.Core.Applicarion.Services.Auth
+namespace LinkDev.Talabat.Core.Application.Services.Auth
 {
     public class AuthService(
         IMapper mapper,

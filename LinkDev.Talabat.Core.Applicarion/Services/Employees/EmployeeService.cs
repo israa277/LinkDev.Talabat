@@ -5,7 +5,7 @@ using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Core.Domain.Entities.Employees;
 using LinkDev.Talabat.Core.Domain.Specifications.Employees;
 
-namespace LinkDev.Talabat.Core.Applicarion.Services.Employees
+namespace LinkDev.Talabat.Core.Application.Services.Employees
 {
 	internal class EmployeeService(IUnitOfWork unitOfWork, IMapper mapper) : IEmployeeService
 	{

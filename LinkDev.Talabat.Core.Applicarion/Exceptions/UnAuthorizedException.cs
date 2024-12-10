@@ -1,4 +1,4 @@
-﻿namespace LinkDev.Talabat.Core.Applicarion.Exceptions
+﻿namespace LinkDev.Talabat.Core.Application.Exceptions
 {
 	public class UnAuthorizedException: ApplicationException
 	{

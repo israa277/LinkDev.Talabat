@@ -1,4 +1,4 @@
-﻿namespace LinkDev.Talabat.Core.Applicarion.Common.Exceptions
+﻿namespace LinkDev.Talabat.Core.Application.Common.Exceptions
 {
 	public class NotFoundException : ApplicationException
 	{

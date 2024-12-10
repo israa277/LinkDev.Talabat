@@ -3,7 +3,7 @@ using LinkDev.Talabat.Core.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace LinkDev.Talabat.Core.Applicarion.Extensions
+namespace LinkDev.Talabat.Core.Application.Extensions
 {
     internal static class UserManagerExtension
     {

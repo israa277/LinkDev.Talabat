@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using LinkDev.Talabat.Core.Applicarion.Exceptions;
+using LinkDev.Talabat.Core.Application.Exceptions;
 using LinkDev.Talabat.Core.Application.Abstraction.Common;
 using LinkDev.Talabat.Core.Application.Abstraction.Models.Products;
 using LinkDev.Talabat.Core.Application.Abstraction.Products;
@@ -8,7 +8,7 @@ using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
 using LinkDev.Talabat.Core.Domain.Specifications.Products;
 
-namespace LinkDev.Talabat.Core.Applicarion.Services.Products
+namespace LinkDev.Talabat.Core.Application.Services.Products
 {
 	internal class ProductServices(IUnitOfWork unitOfWork, IMapper mapper) : IProductService
 	{

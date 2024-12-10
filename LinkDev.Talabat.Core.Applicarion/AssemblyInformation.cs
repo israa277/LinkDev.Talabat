@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LinkDev.Talabat.Core.Applicarion
+namespace LinkDev.Talabat.Core.Application
 {
 	public class AssemblyInformation
 	{

@@ -1,13 +1,13 @@
-﻿using LinkDev.Talabat.Core.Applicarion.Mapping;
-using LinkDev.Talabat.Core.Applicarion.Services;
-using LinkDev.Talabat.Core.Applicarion.Services.Basket;
-using LinkDev.Talabat.Core.Applicarion.Services.Orders;
+﻿using LinkDev.Talabat.Core.Applicarion.Services;
 using LinkDev.Talabat.Core.Application.Abstraction.Services;
 using LinkDev.Talabat.Core.Application.Abstraction.Services.Basket;
 using LinkDev.Talabat.Core.Application.Abstraction.Services.Orders;
+using LinkDev.Talabat.Core.Application.Mapping;
+using LinkDev.Talabat.Core.Application.Services.Basket;
+using LinkDev.Talabat.Core.Application.Services.Orders;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LinkDev.Talabat.Core.Applicarion
+namespace LinkDev.Talabat.Core.Application
 {
     public static class DependencyInjection
     {

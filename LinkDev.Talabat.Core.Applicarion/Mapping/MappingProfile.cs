@@ -11,7 +11,7 @@ using LinkDev.Talabat.Core.Domain.Entities.Orders;
 using UserAddress = LinkDev.Talabat.Core.Domain.Entities.Identity.Address;
 using OrderAddress = LinkDev.Talabat.Core.Domain.Entities.Orders.Address;
 
-namespace LinkDev.Talabat.Core.Applicarion.Mapping
+namespace LinkDev.Talabat.Core.Application.Mapping
 {
     internal class MappingProfile : Profile
     {

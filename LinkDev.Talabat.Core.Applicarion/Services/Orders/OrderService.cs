@@ -1,6 +1,6 @@
 ﻿using System.Formats.Asn1;
 using AutoMapper;
-using LinkDev.Talabat.Core.Applicarion.Exceptions;
+using LinkDev.Talabat.Core.Application.Exceptions;
 using LinkDev.Talabat.Core.Application.Abstraction.Models.Orders;
 using LinkDev.Talabat.Core.Application.Abstraction.Services.Basket;
 using LinkDev.Talabat.Core.Application.Abstraction.Services.Orders;
@@ -9,7 +9,7 @@ using LinkDev.Talabat.Core.Domain.Entities.Orders;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
 using LinkDev.Talabat.Core.Domain.Specifications.Orders;
 
-namespace LinkDev.Talabat.Core.Applicarion.Services.Orders
+namespace LinkDev.Talabat.Core.Application.Services.Orders
 {
     internal class OrderService(IMapper mapper, IUnitOfWork unitOfWork, IBasketService basketService) : IOrderService
     {
