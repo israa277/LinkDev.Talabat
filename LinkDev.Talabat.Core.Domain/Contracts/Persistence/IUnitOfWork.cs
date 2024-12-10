@@ -7,6 +7,6 @@ namespace LinkDev.Talabat.Core.Domain.Contracts.Persistence
         IGenericRepository<TEntity, TKey> GetRepository<TEntity, TKey>()
             where TEntity : BaseEntity<TKey> where TKey : IEquatable<TKey>;
 
-        Task<int> Completesync();
+        Task<int> CompleteAsync();
     }
 }

@@ -1,6 +1,9 @@
-﻿using LinkDev.Talabat.APIs.Controllers.Base;
+﻿using System.Security.Claims;
+using LinkDev.Talabat.APIs.Controllers.Base;
+using LinkDev.Talabat.Core.Application.Abstraction.Models._Common;
 using LinkDev.Talabat.Core.Application.Abstraction.Models.Auth;
 using LinkDev.Talabat.Core.Application.Abstraction.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LinkDev.Talabat.APIs.Controllers.Controllers.Account
@@ -21,5 +24,41 @@ namespace LinkDev.Talabat.APIs.Controllers.Controllers.Account
 			var response = await serviceManager.AuthService.RegisterAsync(model);
 			return Ok(response);
 		}
-	}
+
+		[Authorize]
+		[HttpGet("getcurrentuser")] //GET : /api/account/getcurrentuser
+
+        public async Task<ActionResult<UserDto>> GetCurrentUser()
+        {
+            var result = await serviceManager.AuthService.GetCurrentUser(User);
+            return Ok(result);
+        }
+
+
+        [Authorize]
+        [HttpGet("address")] //GET : /api/account/address
+
+        public async Task<ActionResult<AddressDto>> GetUserAddress()
+        {
+            var result = await serviceManager.AuthService.GetUserAddress(User);
+            return Ok(result);
+        }
+
+        [Authorize]
+        [HttpPut("address")] //GET : /api/account/address
+
+        public async Task<ActionResult<AddressDto>> UpdateUserAddress(AddressDto address)
+        {
+            var result = await serviceManager.AuthService.UpdateUserAddress(User , address);
+            return Ok(result);
+        }
+
+      
+        [HttpGet("emailexists")] //GET : /api/account/emailexists?email=israa.ahmed277@gmail.com
+
+        public async Task<ActionResult<AddressDto>> CheckEmailExists(string email)
+        {
+            return Ok(await serviceManager.AuthService.EmailExists(email!));
+        }
+    }
 }

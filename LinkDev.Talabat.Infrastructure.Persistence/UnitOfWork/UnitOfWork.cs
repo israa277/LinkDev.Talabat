@@ -28,7 +28,7 @@ namespace LinkDev.Talabat.Infrastructure.Persistence.UnitOfWork
 			return (IGenericRepository<TEntity, TKey>)_repositories.GetOrAdd(typeof(TEntity).Name, new GenericRepository<TEntity,TKey>(_dbContext));
 		}
 
-		public async Task<int> Completesync() => await _dbContext.SaveChangesAsync();
+		public async Task<int> CompleteAsync() => await _dbContext.SaveChangesAsync();
 
 		public async ValueTask DisposeAsync() => await _dbContext.DisposeAsync();
 
