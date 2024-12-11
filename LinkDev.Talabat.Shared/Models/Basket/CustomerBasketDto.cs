@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LinkDev.Talabat.Core.Application.Abstraction.Models.Basket
+namespace LinkDev.Talabat.Shared.Basket
 {
 	public class CustomerBasketDto
 	{

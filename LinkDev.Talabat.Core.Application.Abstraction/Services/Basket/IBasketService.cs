@@ -1,8 +1,8 @@
-﻿using LinkDev.Talabat.Core.Application.Abstraction.Models.Basket;
+﻿using LinkDev.Talabat.Shared.Basket;
 
 namespace LinkDev.Talabat.Core.Application.Abstraction.Services.Basket
 {
-	public interface IBasketService
+    public interface IBasketService
 	{
 		Task<CustomerBasketDto> GetCustomerBasketAsync(string basketId);
 		Task<CustomerBasketDto> UpdateCustomerBasketAsync(CustomerBasketDto customerBasket);

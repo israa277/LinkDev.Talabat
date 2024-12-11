@@ -1,16 +1,16 @@
-﻿using LinkDev.Talabat.Core.Applicarion.Services.Auth;
-using LinkDev.Talabat.Core.Application.Abstraction.Services.Auth;
+﻿using System.Text;
 using LinkDev.Talabat.Core.Application.Abstraction.Models.Auth;
+using LinkDev.Talabat.Core.Application.Abstraction.Services.Auth;
+using LinkDev.Talabat.Core.Application.Services.Auth;
 using LinkDev.Talabat.Core.Domain.Entities.Identity;
 using LinkDev.Talabat.Infrastructure.Persistence.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 
 namespace LinkDev.Talabat.APIs.Extensions
 {
-	public static class IdentityExtensions
+    public static class IdentityExtensions
 	{
 		public static IServiceCollection AddIdentityServices(this IServiceCollection services, IConfiguration configuration)
 		{

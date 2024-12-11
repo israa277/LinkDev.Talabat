@@ -1,20 +1,29 @@
-﻿using LinkDev.Talabat.Core.Application.Exceptions;
+﻿using AutoMapper;
+using LinkDev.Talabat.Core.Application.Exceptions;
 using LinkDev.Talabat.Core.Domain.Contracts.Infrastructure;
 using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Core.Domain.Entities.Basket;
 using LinkDev.Talabat.Core.Domain.Entities.Orders;
+using LinkDev.Talabat.Shared.Basket;
 using LinkDev.Talabat.Shared.Models;
 using Microsoft.Extensions.Options;
 using Stripe;
 using Product = LinkDev.Talabat.Core.Domain.Entities.Products.Product;
 
-namespace LinkDev.Talabat.Infrastructure.PaymentService
+namespace LinkDev.Talabat.Infrastructure.Payment_Service
 {
-    internal class PaymentService(IBasketRepository basketRepository, IUnitOfWork unitOfWork,IOptions<RadisSettings> radisSettings) : IPaymentService
+    internal class PaymentService(IBasketRepository basketRepository, 
+        IUnitOfWork unitOfWork,
+        IMapper mapper,
+        IOptions<RadisSettings> radisSettings,
+       IOptions<StripeSettings> stripeSettings
+        ) : IPaymentService
     {
         private readonly RadisSettings _radisSettings = radisSettings.Value;
-        public async Task<CustomerBasket?> CreateOrUpdatePaymentIntent(string basketId)
+        private readonly StripeSettings _stripeSettings = stripeSettings.Value;
+        public async Task<CustomerBasketDto> CreateOrUpdatePaymentIntent(string basketId)
         {
+            StripeConfiguration.ApiKey = _stripeSettings.SecretKey;
             var basket = await basketRepository.GetAsync(basketId);
             if (basket is null) throw new NotFoundException(nameof(CustomerBasket), basketId);
             if (basket.DeliveryMethodId.HasValue)
@@ -44,7 +53,7 @@ namespace LinkDev.Talabat.Infrastructure.PaymentService
                 {
                     Amount = (long)basket.Items.Sum(item => item.Price * 100 * item.Quantity) + (long)basket.ShippingPrice * 100,
                     Currency = "USD",
-                    PaymentMethodTypes = new List<string>() { "Card" }
+                    PaymentMethodTypes = new List<string>() { "card" }
                 };
                 paymentIntent = await paymentIntwntService.CreateAsync(options);
                 basket.PaymentIntentId = paymentIntent.Id;
@@ -61,7 +70,7 @@ namespace LinkDev.Talabat.Infrastructure.PaymentService
                 await paymentIntwntService.UpdateAsync(basket.PaymentIntentId, options);
             }
             await basketRepository.UpdateAsync(basket,TimeSpan.FromDays(_radisSettings.TimeToLiveInDays));
-            return basket;
+            return mapper.Map<CustomerBasketDto>(basket);
         }
     }
 }

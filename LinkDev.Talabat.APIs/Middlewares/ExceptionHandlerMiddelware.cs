@@ -1,11 +1,11 @@
-﻿using LinkDev.Talabat.APIs.Controllers.Errors;
-using LinkDev.Talabat.Core.Applicarion.Exceptions;
-using System.Net;
+﻿using System.Net;
+using LinkDev.Talabat.APIs.Controllers.Errors;
+using LinkDev.Talabat.Core.Application.Exceptions;
 
 namespace LinkDev.Talabat.APIs.Middlewares
 {
-	// Convension - Based
-	public class ExceptionHandlerMiddelware
+    // Convension - Based
+    public class ExceptionHandlerMiddelware
 	{
 		private readonly RequestDelegate _next;
 		private readonly ILogger<ExceptionHandlerMiddelware> _logger;

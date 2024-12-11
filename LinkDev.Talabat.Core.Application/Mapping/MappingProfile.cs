@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using LinkDev.Talabat.Core.Application.Abstraction.Models._Common;
-using LinkDev.Talabat.Core.Application.Abstraction.Models.Basket;
 using LinkDev.Talabat.Core.Application.Abstraction.Models.Employees;
 using LinkDev.Talabat.Core.Application.Abstraction.Models.Orders;
 using LinkDev.Talabat.Core.Application.Abstraction.Models.Products;
 using LinkDev.Talabat.Core.Domain.Entities.Basket;
 using LinkDev.Talabat.Core.Domain.Entities.Employees;
-using LinkDev.Talabat.Core.Domain.Entities.Products;
 using LinkDev.Talabat.Core.Domain.Entities.Orders;
-using UserAddress = LinkDev.Talabat.Core.Domain.Entities.Identity.Address;
+using LinkDev.Talabat.Core.Domain.Entities.Products;
+using LinkDev.Talabat.Shared.Basket;
 using OrderAddress = LinkDev.Talabat.Core.Domain.Entities.Orders.Address;
+using UserAddress = LinkDev.Talabat.Core.Domain.Entities.Identity.Address;
 
 namespace LinkDev.Talabat.Core.Application.Mapping
 {
@@ -42,7 +42,7 @@ namespace LinkDev.Talabat.Core.Application.Mapping
             CreateMap<UserAddress, AddressDto>().ReverseMap();
 
             CreateMap<DeliveryMethod, DeliveryMethodDto>();
-            CreateMap<OrderAddress, AddressDto>();
+            CreateMap<OrderAddress, AddressDto>().ReverseMap();
 
 
         }
