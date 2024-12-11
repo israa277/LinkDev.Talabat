@@ -8,10 +8,11 @@ using LinkDev.Talabat.Core.Domain.Contracts.Persistence;
 using LinkDev.Talabat.Core.Domain.Entities.Orders;
 using LinkDev.Talabat.Core.Domain.Entities.Products;
 using LinkDev.Talabat.Core.Domain.Specifications.Orders;
+using LinkDev.Talabat.Core.Domain.Contracts.Infrastructure;
 
 namespace LinkDev.Talabat.Core.Application.Services.Orders
 {
-    internal class OrderService(IMapper mapper, IUnitOfWork unitOfWork, IBasketService basketService) : IOrderService
+    internal class OrderService(IMapper mapper, IUnitOfWork unitOfWork, IBasketService basketService , IPaymentService paymentService) : IOrderService
     {
         public async Task<OrderToReturnDto> CreateOrderAsync(string buyerEmail, OrderToCreateDto order)
         {
@@ -54,6 +55,17 @@ namespace LinkDev.Talabat.Core.Application.Services.Orders
             //5.Get Delivery Method
             var delivaryMethod = await unitOfWork.GetRepository<DeliveryMethod, int>().GetAsync(order.DeliveryMethodId);
             // 6. Create Order
+            var orderRepo = unitOfWork.GetRepository<Order, int>();
+
+            var orderSpecs = new OrderByPaymentIntentSpecifications(basket.PaymentIntentId!);
+            
+            var existingOrder = await orderRepo.GetWithSpecAsync(orderSpecs);
+            if (existingOrder is not null)
+            {
+                orderRepo.Delete(existingOrder);
+                await paymentService.CreateOrUpdatePaymentIntent(basket.Id);
+            }
+
             var orderToCreate = new Order()
             {
                 BuyerEmail = buyerEmail,
@@ -61,8 +73,9 @@ namespace LinkDev.Talabat.Core.Application.Services.Orders
                 DeliveryMethod = delivaryMethod,
                 Items = orderItems,
                 Subtotal = subTotal,
+                PaymentIntentId = basket.PaymentIntentId!
             };
-            await unitOfWork.GetRepository<Order, int>().AddAsync(orderToCreate);
+            await orderRepo.AddAsync(orderToCreate);
             // 7.Save To DataBase
             var created = await unitOfWork.CompleteAsync() > 0;
             if (!created) throw new BadRequestException("AN Error has occured during creating the order");
